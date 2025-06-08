@@ -2,14 +2,9 @@ from fastapi import APIRouter, Header, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from ..crud import comments as crud_comments
 from ..schemas.comments import CommentIn, CommentOut
-from ..utils.dependencies import get_session
+from ..utils.dependencies import get_session, get_current_user
 
 router = APIRouter()
-
-
-async def get_current_user(x_token: str = Header(...)):
-    # 临时代替身份验证，x_token 直接视作 user_id
-    return x_token
 
 @router.post("/comment/", response_model=CommentOut)
 async def create_comment(comment: CommentIn, user_id: str = Depends(get_current_user), session: AsyncSession = Depends(get_session)):

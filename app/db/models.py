@@ -10,7 +10,7 @@ class Comment(Base):
 
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, index=True)
-    user_id = Column(String, index=True)
+    user_id = Column(String, ForeignKey("users.id"), index=True)
     content = Column(Text)
     created_at = Column(DateTime, default=func.now())
     parent_id = Column(Integer, ForeignKey("comments.id"), nullable=True)
@@ -29,3 +29,13 @@ class Like(Base):
     created_at = Column(DateTime, default=func.now())
 
     comment = relationship("Comment", back_populates="likes")
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(String, primary_key=True, index=True)  # QQ 的唯一 ID
+    nickname = Column(String, nullable=False)
+    avatar = Column(String)  # 头像 URL
+    created_at = Column(DateTime, default=func.now())
+
+
