@@ -15,7 +15,7 @@ app.include_router(likes.router)
 allow_origins=["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # 允许的前端来源
+    allow_origins=allow_origins,  # 允许的前端来源
     allow_credentials=True,
     allow_methods=["*"],  # 允许所有方法：GET, POST, PUT, DELETE 等
     allow_headers=["*"],  # 允许所有请求头
