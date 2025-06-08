@@ -1,0 +1,15 @@
+[Unit]
+Description=Earth Daily Comment
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/var/www/edcom/
+ExecStart=/var/www/edcom/venv/bin/python3 main.py
+Restart=always
+StandardOutput=file:/var/log/edcom.log
+StandardError=file:/var/log/edcom.err
+
+
+[Install]
+WantedBy=multi-user.target
