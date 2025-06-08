@@ -6,10 +6,20 @@ from fastapi import FastAPI
 from .api import comments, likes
 from .db.database import engine
 from .db.models import Base
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 app.include_router(comments.router)
 app.include_router(likes.router)
+
+allow_origins=["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # 允许的前端来源
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许所有方法：GET, POST, PUT, DELETE 等
+    allow_headers=["*"],  # 允许所有请求头
+)
 
 @app.on_event("startup")
 async def on_startup():
